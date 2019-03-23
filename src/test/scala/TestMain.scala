@@ -5,5 +5,8 @@ class TestMain extends FunSuite{
     assert(1==new Returns1().call)
   }
 
+  test("check next functtion should return 2"){
+    assert(2== new Returns1().call2())
+  }
 
 }
