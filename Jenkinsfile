@@ -2,7 +2,7 @@ pipeline{
     agent{
         kubernetes {
             label 'mypod'
-            container {
+            containerTemplates {
             containerTemplate{
                 name 'sbt'
                 image 'bigtruedata/sbt:0.13.15-2.10.6'
