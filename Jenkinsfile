@@ -14,7 +14,11 @@ pipeline{
                   command:
                   - cat
                   tty: true
-
+                - name: aws
+                  image: mesosphere/aws-cli:1.14.5
+                  command:
+                  - cat
+                  tty: true
             """
         }
     }
@@ -31,6 +35,13 @@ pipeline{
             steps{
                 container("sbt"){
                     sh 'sbt test'
+                }
+            }
+        }
+        stage("check aws"){
+            steps{
+                container("aws"){
+                    sh 'which aws'
                 }
             }
         }
