@@ -14,7 +14,7 @@ pipeline{
                 image 'mesosphere/aws-cli:1.14.5'
                 ttyEnabled true
                 command 'cat'
-            },
+            }
             }
         }
     }
