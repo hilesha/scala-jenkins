@@ -14,9 +14,8 @@ pipeline{
         stage("Run sbt"){
             steps{
                 container("sbt"){
-                    sh 'sbt sbtVersion'
-                    sh 'pwd'
-                    sh 'ls -lrt src/'
+                    sh 'sbt test'
+                    sh 'sbt package'
                 }
             }
         }
