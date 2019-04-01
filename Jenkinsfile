@@ -3,20 +3,20 @@ pipeline{
         kubernetes {
             label 'mypod'
             containerTemplate{
-                name 'maven'
-                image 'maven:3.3.9-jdk-8-alpine'
+                name 'sbt'
+                image 'bigtruedata/sbt:0.13.15-2.10.6'
                 ttyEnabled true
                 command 'cat'
             }
         }
     }
     stages{
-        stage("Run maven"){
+        stage("Run sbt"){
             steps{
-                sh 'set'
-                sh "echo OUTSIDE_CONTAINER_ENV_VAR"
-                container("maven"){
-                    sh 'mvn -version'
+                container("sbt"){
+                    sh 'sbt sbtVersion'
+                    sh 'pwd'
+                    sh 'ls -lrt src/'
                 }
             }
         }
