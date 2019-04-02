@@ -2,24 +2,20 @@ pipeline{
     agent{
         kubernetes {
             label 'mypod'
-            defaultContainer 'sbt'
-            yaml """
-            metadata:
-                labels:
-                    x: y
-            spec:
-                containers:
-                - name: sbt
-                  image: bigtruedata/sbt:0.13.15-2.10.6
-                  command:
-                  - cat
-                  tty: true
-                - name: aws
-                  image: mesosphere/aws-cli:1.14.5
-                  command:
-                  - cat
-                  tty: true
-            """
+            containers [
+                containerTemplate{
+                name 'sbt'
+                image 'bigtruedata/sbt:0.13.15-2.10.6'
+                ttyEnabled true
+                command 'cat'
+            },
+            containerTemplate{
+                name 'aws'
+                image 'mesosphere/aws-cli:1.14.5'
+                ttyEnabled true
+                command 'cat'
+            }
+            ]
         }
     }
     stages{
