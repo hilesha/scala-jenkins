@@ -18,10 +18,10 @@ pipeline{
         }
     }
     stages{
-        when { 
+        stage("Run sbt"){
+            when { 
             branch 'master'
         }
-        stage("Run sbt"){
             steps{
                 container("sbt"){
                     sh 'sbt test'
