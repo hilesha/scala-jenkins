@@ -18,6 +18,9 @@ pipeline{
         }
     }
     stages{
+        when { 
+            branch 'master'
+        }
         stage("Run sbt"){
             steps{
                 container("sbt"){
@@ -35,7 +38,7 @@ pipeline{
         }
         stage("check aws"){
             steps{
-                container("aws"){
+                container("sbt"){
                     sh 'which aws'
                 }
             }
