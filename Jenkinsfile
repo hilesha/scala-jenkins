@@ -18,9 +18,6 @@ pipeline{
         }
     }
     stages{
-        stage("checkout"){
-            checkout scm
-        }
         stage("publish jar"){
             steps{
                 container("sbt"){
