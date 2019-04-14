@@ -1,12 +1,12 @@
 pipeline{
     agent{
         kubernetes {
-            label 'mypod'
+            label 'sbtpod'
             defaultContainer 'sbt'
             yaml """
             metadata:
                 labels:
-                    x: y
+                    build: sbt
             spec:
                 containers:
                 - name: sbt
@@ -17,11 +17,17 @@ pipeline{
             """
         }
     }
+    environment{
+        postgres_user= 'user'
+        postgres_password= 'password'
+    }
     stages{
         stage("publish jar"){
             steps{
                 container("sbt"){
                     sh 'sbt package'
+                    sh 'echo $postgres_user'
+                    sh 'echo $postgres_password'
                 }
             }
         }
@@ -32,6 +38,8 @@ pipeline{
             steps{
                 container("sbt"){
                     sh 'which aws'
+                    input 'Approval for UAT Merge?'
+                    sh 'echo Done'
                 }
             }
         }
