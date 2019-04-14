@@ -25,6 +25,9 @@ pipeline{
                 }
             }
         }
+        when{
+            branch 'master'
+        }
         stage("check aws"){
             steps{
                 container("sbt"){
