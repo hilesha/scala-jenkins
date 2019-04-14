@@ -18,29 +18,22 @@ pipeline{
         }
     }
     stages{
-        stage("Run sbt"){
-            steps{
-                container("sbt"){
-                    sh 'sbt test'
-                    sh 'sbt package'
-                }
-            }
-        }
         stage("publish jar"){
             steps{
                 container("sbt"){
-                    sh 'sbt test'
+                    sh 'sbt package'
                 }
             }
         }
         stage("check aws"){
             steps{
-                container("aws"){
+                container("sbt"){
                     sh 'which aws'
                 }
             }
         }
     }
 }
+
 
 
