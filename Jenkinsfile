@@ -18,21 +18,13 @@ pipeline{
         }
     }
     stages{
-        stage("Run sbt"){
-            when { 
-            branch 'master'
-        }
-            steps{
-                container("sbt"){
-                    sh 'sbt test'
-                    sh 'sbt package'
-                }
-            }
+        stage("checkout"){
+            checkout scm
         }
         stage("publish jar"){
             steps{
                 container("sbt"){
-                    sh 'sbt test'
+                    sh 'sbt package'
                 }
             }
         }
@@ -45,5 +37,6 @@ pipeline{
         }
     }
 }
+
 
 
