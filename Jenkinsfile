@@ -28,6 +28,9 @@ pipeline{
                     sh 'sbt package'
                     sh 'echo $postgres_user'
                     sh 'echo $postgres_password'
+                    sh 'echo $pwd'
+                    sh 'ls -ltr target/scala-2.12/'
+                    sh 'ls -ltr target/test-reports/'
                 }
             }
             post{
