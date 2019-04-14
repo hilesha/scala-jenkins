@@ -32,7 +32,8 @@ pipeline{
             }
             post{
                 success{
-                    archiveArtifacts artifacts: target/scala-2.12/*.jar, fingerprint: true
+                    archiveArtifacts artifacts: 'target/scala-2.12/*.jar', allowEmptyArchive: true
+                    junit allowEmptyResults: true, testResults: '**/test-reports/*.xml'
                 }
             }
         }
