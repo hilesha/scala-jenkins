@@ -22,6 +22,20 @@ pipeline{
         postgres_password= 'password'
     }
     stages{
+        stage("run tests"){
+            steps{
+                container("sbt"){
+                    sh 'sbt test'
+                    sh 'pwd'
+                    sh 'ls -ltr target/test-reports/'
+                }
+            }
+            post{
+                success{
+                    junit allowEmptyResults: true, testResults: 'target/test-reports/*.xml'
+                }
+            }
+        }
         stage("publish jar"){
             steps{
                 container("sbt"){
@@ -30,13 +44,11 @@ pipeline{
                     sh 'echo $postgres_password'
                     sh 'echo $pwd'
                     sh 'ls -ltr target/scala-2.12/'
-                    sh 'ls -ltr target/test-reports/'
                 }
             }
             post{
                 success{
                     archiveArtifacts artifacts: 'target/scala-2.12/*.jar', allowEmptyArchive: true
-                    junit allowEmptyResults: true, testResults: '**/test-reports/*.xml'
                 }
             }
         }
