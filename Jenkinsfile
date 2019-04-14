@@ -38,6 +38,8 @@ pipeline{
             steps{
                 container("sbt"){
                     sh 'which aws'
+                    input 'Approval for UAT Merge?'
+                    sh 'echo Done'
                 }
             }
         }
