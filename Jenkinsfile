@@ -25,10 +25,10 @@ pipeline{
                 }
             }
         }
-        when{
+        stage("check aws"){
+            when{
             branch 'master'
         }
-        stage("check aws"){
             steps{
                 container("sbt"){
                     sh 'which aws'
