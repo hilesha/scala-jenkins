@@ -30,6 +30,11 @@ pipeline{
                     sh 'echo $postgres_password'
                 }
             }
+            post{
+                success{
+                    archiveArtifacts artifacts: target/scala-2.12/*.jar, fingerprint: true
+                }
+            }
         }
         stage("check aws"){
             when{
